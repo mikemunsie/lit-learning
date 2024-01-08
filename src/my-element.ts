@@ -1,23 +1,27 @@
 import { LitElement, html, css } from "lit";
-import { customElement, query, property } from "lit/decorators.js";
+import { customElement, query, property, state } from "lit/decorators.js";
+import globalStyles from "./style/global-styles";
 
 @customElement("my-element")
 export class MyElement extends LitElement {    
-  @property({type: Boolean})
-  inputEnabled = true;
-
-  @property({type: String})
-  name = "World";
-
-  @property({type: Number})
-  count = 0;
-
-  @query(".nameInput")
-  input!: HTMLInputElement;
+  @property() name = "World";
+  @state() count = 0;
+  @state() inputEnabled = true;
+  @query(".nameInput") input!: HTMLInputElement;
 
   get buttonClickedText() {
     return `Button clicked ${this.count} times`;
   }
+
+  static styles = [
+    globalStyles,
+    css`
+      button {
+        all: unset;
+        background: green;
+      }
+    `
+  ];
 
   render() {
     return html`
